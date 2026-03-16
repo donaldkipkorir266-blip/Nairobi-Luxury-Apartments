@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Nairobi Luxury Apartments</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mvuli Luxury Stays</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
     <script>
-        // Your web app's Firebase configuration
+        // TODO: Add your Firebase project configuration
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
             projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
             appId: "YOUR_APP_ID"
         };
         // Initialize Firebase
@@ -20,18 +23,37 @@
         const database = firebase.database(app);
 
         function saveData(data) {
-            database.ref('apartments/').push(data);
-            console.log('Data saved to Firebase:', data);
-        }
-
-        function initialization() {
-            // Existing Initialization Code
-            console.log('Initialization complete.');
+            // Save data to Firebase
+            database.ref('your_data_path/').set(data)
+                .then(() => {
+                    console.log('Data saved successfully!');
+                })
+                .catch((error) => {
+                    console.error('Error saving data: ', error);
+                });
         }
     </script>
 </head>
 <body>
-    <h1>Welcome to Nairobi Luxury Apartments</h1>
-    <!-- Existing HTML and CSS go here -->
+    <header>
+        <h1>Welcome to Mvuli Luxury Stays</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Rooms</a></li>
+                <li><a href="#">Booking</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Luxury Apartments</h2>
+            <!-- Content of the apartments goes here -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Mvuli Luxury Stays</p>
+    </footer>
 </body>
 </html>
