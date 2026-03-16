@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mvuli Luxury Stays | Nairobi</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c5a059;
+            --dark: #1a1a1a;
+            --light: #f9f9f9;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+
+        .gold-btn {
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .gold-btn:hover {
+            background-color: #b38f4d;
+            transform: translateY(-2px);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1);
+        }
+
+        .page-transition {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        #app-content {
+            min-height: calc(100vh - 400px);
+        }
+
+        .admin-sidebar {
+            background: #1f2937;
+            color: white;
+        }
+
+        .room-image-preview {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* Secret trigger styling */
+        .secret-admin-trigger {
+            cursor: default;
+            color: transparent;
+            transition: color 0.3s;
+        }
+        .secret-admin-trigger:hover {
+            color: #4b5563;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold tracking-tighter cursor-pointer" onclick="navigateTo('home')">
+                        MVULI<span class="text-yellow-600">STAY</span>
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-yellow-600">Home</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('rooms')" class="hover:text-yellow-600">Apartments</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('gallery')" class="hover:text-yellow-600">Gallery</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('amenities')" class="hover:text-yellow-600">Amenities</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('about')" class="hover:text-yellow-600">About</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('contact')" class="hover:text-yellow-600">Contact</a>
+                    <button onclick="navigateTo('booking')" class="gold-btn px-6 py-2 rounded-full text-white font-semibold">Book Now</button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-4 py-4 space-y-4">
+            <a href="javascript:void(0)" onclick="navigateTo('home')" class="block">Home</a>
+            <a href="javascript:void(0)" onclick="navigateTo('rooms')" class="block">Rooms</a>
+            <a href="javascript:void(0)" onclick="navigateTo('gallery')" class="block">Gallery</a>
+            <a href="javascript:void(0)" onclick="navigateTo('booking')" class="block">Book Now</a>
+        </div>
+    </nav>
+
+    <!-- Main Dynamic Content -->
+    <div id="app-content"></div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <h3 class="text-xl font-bold mb-6">MVULI STAY</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Premium short-stay apartments located in the heart of Mvuli, Nairobi. Experience luxury living with the comforts of home.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Quick Links</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="javascript:void(0)" onclick="navigateTo('home')">Home</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('rooms')">Apartments</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('gallery')">Gallery</a></li>
+                    <li><a href="javascript:void(0)" onclick="navigateTo('location')">Location</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Contact Us</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><i class="fas fa-map-marker-alt mr-2 text-yellow-600"></i> Mvuli Area, Nairobi, Kenya</li>
+                    <li><i class="fas fa-phone mr-2 text-yellow-600"></i> +254 715 760 761</li>
+                    <li><i class="fas fa-envelope mr-2 text-yellow-600"></i> info@mvulistay.com</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Follow Us</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-whatsapp text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs">
+            &copy; 2024 Mvuli Stay. 
+            <span class="secret-admin-trigger" onclick="navigateTo('admin-login')">Admin Management</span> 
+            All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/254715760761?text=Hello,%20I%20would%20like%20to%20book%20your%20apartment%20in%20Mvuli%20Nairobi." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // --- DATA STORE ---
+        const WHATSAPP_NUM = "0715760761";
+        const ADMIN_PASS = "admin123";
+
+        const INITIAL_STATE = {
+            hero: {
+                title: "Luxury Short Stays in Mvuli Area",
+                description: "Discover a blend of modern elegance and Kenyan hospitality. Your premier destination for short stays in Nairobi.",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1600"
+            },
+            rooms: [
+                {
+                    id: 1,
+                    name: "Royal Suite Penthouse",
+                    price: 18500,
+                    description: "Luxurious 3-bedroom suite with a private terrace overlooking the Nairobi skyline. Features premium Italian furniture and a fully equipped chef's kitchen.",
+                    images: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800"],
+                    amenities: ["WiFi", "Netflix", "Balcony", "Parking", "Washer"]
+                },
+                {
+                    id: 2,
+                    name: "Business Executive Studio",
+                    price: 8500,
+                    description: "Sleek, modern studio optimized for business travelers. High-speed fiber internet and ergonomic workspace included.",
+                    images: ["https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800"],
+                    amenities: ["Fiber WiFi", "Desk", "Smart TV", "Coffee Maker"]
+                }
+            ],
+            gallery: [
+                "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800",
+                "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800",
+                "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=800",
+                "https://images.unsplash.com/photo-1499955085172-a104c9463ece?auto=format&fit=crop&q=80&w=800"
+            ],
+            bookings: [],
+            referrals: ["KARIBU24", "MVULI10"],
+            siteText: {
+                about: "Located in the serene Mvuli Area of Nairobi, our apartments offer an unparalleled experience for travelers seeking both luxury and convenience. Every space is meticulously designed to provide a home-away-from-home feel with the sophistication of a premium hotel.",
+                contact: "We are available 24/7 via WhatsApp or Email. Our physical location is in Mvuli Area, just minutes away from Westlands and the Nairobi Expressway."
+            }
+        };
+
+        let appState = JSON.parse(localStorage.getItem('mvuli_v2_data')) || INITIAL_STATE;
+        let isAdminAuthenticated = sessionStorage.getItem('admin_auth') === 'true';
+
+        function saveData() {
+            localStorage.setItem('mvuli_v2_data', JSON.stringify(appState));
+        }
+
+        // --- NAVIGATION LOGIC ---
+        function navigateTo(page, params = {}) {
+            window.scrollTo(0,0);
+            const content = document.getElementById('app-content');
+            
+            // Hide mobile menu on navigation
+            document.getElementById('mobile-menu').classList.add('hidden');
+
+            if (page === 'admin-dashboard' && !isAdminAuthenticated) {
+                return renderAdminLogin(content);
+            }
+
+            switch(page) {
+                case 'home': renderHome(content); break;
+                case 'rooms': renderRooms(content); break;
+                case 'room-details': renderRoomDetails(content, params); break;
+                case 'booking': renderBooking(content, params); break;
+                case 'gallery': renderGallery(content); break;
+                case 'amenities': renderAmenities(content); break;
+                case 'location': renderLocation(content); break;
+                case 'about': renderAbout(content); break;
+                case 'contact': renderContact(content); break;
+                case 'admin-login': renderAdminLogin(content); break;
+                case 'admin-dashboard': renderAdminDashboard(content); break;
+                default: renderHome(content);
+            }
+            
+            window.location.hash = page;
+        }
+
+        // --- PAGE RENDERS ---
+
+        function renderHome(container) {
+            container.innerHTML = `
+                <div class="page-transition">
+                    <section class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+                        <img src="${appState.hero.image}" class="absolute inset-0 w-full h-full object-cover">
+                        <div class="absolute inset-0 hero-gradient"></div>
+                        <div class="relative z-10 text-center px-4 max-w-5xl">
+                            <h1 class="text-5xl md:text-8xl font-black text-white mb-8 tracking-tight">${appState.hero.title}</h1>
+                            <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto font-light">${appState.hero.description}</p>
+                            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                                <button onclick="navigateTo('rooms')" class="gold-btn px-12 py-5 rounded-full text-lg font-bold shadow-2xl">View Apartments</button>
+                                <button onclick="navigateTo('booking')" class="bg-white text-gray-900 px-12 py-5 rounded-full text-lg font-bold hover:bg-gray-100 transition shadow-2xl">Book My Stay</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="py-24 max-w-7xl mx-auto px-4">
+                        <div class="text-center mb-16">
+                            <h2 class="text-4xl font-bold mb-4">Exceptional Living Spaces</h2>
+                            <p class="text-gray-500">Curated for business, leisure, and everything in between.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                            ${appState.rooms.slice(0, 3).map(room => `
+                                <div class="bg-white rounded-3xl overflow-hidden shadow-xl group cursor-pointer" onclick="navigateTo('room-details', {id: ${room.id}})">
+                                    <div class="h-72 overflow-hidden">
+                                        <img src="${room.images[0]}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                                    </div>
+                                    <div class="p-8">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <h3 class="text-2xl font-bold">${room.name}</h3>
+                                            <span class="text-yellow-600 font-black text-xl">KES ${room.price.toLocaleString()}</span>
+                                        </div>
+                                        <p class="text-gray-500 mb-6 line-clamp-2">${room.description}</p>
+                                        <div class="flex items-center text-sm text-gray-400 space-x-6 border-t pt-6">
+                                            <span><i class="fas fa-expand mr-2"></i> 1200 sqft</span>
+                                            <span><i class="fas fa-bed mr-2"></i> 2 Bed</span>
+                                            <span><i class="fas fa-wifi mr-2 text-green-500"></i> Free WiFi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        function renderRooms(container) {
+            container.innerHTML = `
+                <div class="page-transition py-20 max-w-7xl mx-auto px-4">
+                    <h1 class="text-5xl font-black mb-6">Our Collection</h1>
+                    <p class="text-gray-500 text-xl mb-16">Premium short-stay solutions in Mvuli Area, Nairobi.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        ${appState.rooms.map(room => `
+                            <div class="bg-white rounded-[40px] overflow-hidden shadow-2xl flex flex-col md:flex-row h-full">
+                                <div class="md:w-1/2 h-80 md:h-auto">
+                                    <img src="${room.images[0]}" class="w-full h-full object-cover">
+                                </div>
+                                <div class="md:w-1/2 p-10 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="text-3xl font-bold mb-4">${room.name}</h3>
+                                        <p class="text-yellow-600 font-black text-2xl mb-6">KES ${room.price.toLocaleString()} <span class="text-gray-400 text-sm font-normal">/ Night</span></p>
+                                        <p class="text-gray-500 leading-relaxed mb-8">${room.description}</p>
+                                    </div>
+                                    <button onclick="navigateTo('room-details', {id: ${room.id}})" class="gold-btn w-full py-4 rounded-2xl font-bold">View Apartment</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderRoomDetails(container, params) {
+            const room = appState.rooms.find(r => r.id === parseInt(params.id));
+            if (!room) return navigateTo('rooms');
+
+            container.innerHTML = `
+                <div class="page-transition py-12 max-w-7xl mx-auto px-4">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+                        <div class="lg:col-span-2">
+                            <div class="rounded-[3rem] overflow-hidden h-[600px] mb-10 shadow-2xl">
+                                <img src="${room.images[0]}" class="w-full h-full object-cover">
+                            </div>
+                            <h1 class="text-5xl font-black mb-8">${room.name}</h1>
+                            <div class="prose prose-xl text-gray-600 max-w-none mb-12">
+                                <p class="text-xl leading-relaxed">${room.description}</p>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-8">Amenities</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                ${room.amenities.map(a => `
+                                    <div class="flex items-center space-x-4 p-4 bg-white rounded-2xl border">
+                                        <i class="fas fa-check-circle text-yellow-600 text-xl"></i>
+                                        <span class="font-bold">${a}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="lg:col-span-1">
+                            <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl sticky top-28 border">
+                                <div class="mb-8">
+                                    <span class="text-4xl font-black">KES ${room.price.toLocaleString()}</span>
+                                    <span class="text-gray-400"> / night</span>
+                                </div>
+                                <div class="space-y-4 mb-10">
+                                    <div class="p-4 border rounded-2xl">
+                                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Check In</label>
+                                        <span class="font-bold">Select Date at Booking</span>
+                                    </div>
+                                    <div class="p-4 border rounded-2xl">
+                                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Guests</label>
+                                        <span class="font-bold">Max 4 Guests</span>
+                                    </div>
+                                </div>
+                                <button onclick="navigateTo('booking', {roomId: ${room.id}})" class="gold-btn w-full py-5 rounded-2xl font-black text-xl">Reserve Now</button>
+                                <p class="text-center text-gray-400 mt-6 text-sm">Instant confirmation available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderBooking(container, params) {
+            const selectedId = params.roomId || (appState.rooms[0]?.id);
+            container.innerHTML = `
+                <div class="page-transition py-20 max-w-4xl mx-auto px-4">
+                    <div class="bg-white p-12 md:p-20 rounded-[3rem] shadow-2xl">
+                        <h1 class="text-4xl font-black mb-10 text-center">Reservation Form</h1>
+                        <form id="book-form" class="space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-2">
+                                    <label class="text-sm font-black uppercase text-gray-400">Full Name</label>
+                                    <input type="text" id="b-name" required class="w-full px-6 py-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-black uppercase text-gray-400">WhatsApp Number</label>
+                                    <input type="tel" id="b-phone" required class="w-full px-6 py-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-black uppercase text-gray-400">Apartment</label>
+                                <select id="b-room" class="w-full px-6 py-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">
+                                    ${appState.rooms.map(r => `<option value="${r.id}" ${r.id == selectedId ? 'selected' : ''}>${r.name} (KES ${r.price}/night)</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-2">
+                                    <label class="text-sm font-black uppercase text-gray-400">Check-In</label>
+                                    <input type="date" id="b-in" required class="w-full px-6 py-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-black uppercase text-gray-400">Check-Out</label>
+                                    <input type="date" id="b-out" required class="w-full px-6 py-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-black uppercase text-gray-400">Referral Code</label>
+                                <input type="text" id="b-ref" placeholder="Optional" class="w-full px-6 py-4 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition uppercase">
+                            </div>
+                            <button type="submit" class="gold-btn w-full py-6 rounded-3xl font-black text-xl shadow-xl">Complete Reservation</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('book-form').onsubmit = (e) => {
+                e.preventDefault();
+                const room = appState.rooms.find(r => r.id == document.getElementById('b-room').value);
+                const booking = {
+                    id: Date.now(),
+                    guest: document.getElementById('b-name').value,
+                    phone: document.getElementById('b-phone').value,
+                    room: room.name,
+                    checkIn: document.getElementById('b-in').value,
+                    checkOut: document.getElementById('b-out').value,
+                    referral: document.getElementById('b-ref').value,
+                    status: 'pending'
+                };
+                appState.bookings.push(booking);
+                saveData();
+                container.innerHTML = `
+                    <div class="page-transition py-40 text-center">
+                        <div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-5xl mx-auto mb-8 shadow-inner">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 class="text-5xl font-black mb-6">Booking Confirmed!</h2>
+                        <p class="text-xl text-gray-500 mb-12">Thank you, ${booking.guest}. We'll contact you on WhatsApp shortly.</p>
+                        <button onclick="navigateTo('home')" class="gold-btn px-12 py-4 rounded-full font-bold">Return Home</button>
+                    </div>
+                `;
+            };
+        }
+
+        function renderGallery(container) {
+            container.innerHTML = `
+                <div class="page-transition py-20 max-w-7xl mx-auto px-4">
+                    <h1 class="text-5xl font-black mb-12 text-center">Gallery</h1>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        ${appState.gallery.map(img => `
+                            <div class="h-80 rounded-3xl overflow-hidden shadow-lg group">
+                                <img src="${img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAmenities(container) {
+            const list = [
+                {icon: 'wifi', name: 'High Speed WiFi'}, {icon: 'tv', name: 'Smart TV & Netflix'},
+                {icon: 'utensils', name: 'Fully Fitted Kitchen'}, {icon: 'parking', name: 'Free Secure Parking'},
+                {icon: 'shield', name: '24/7 Guards'}, {icon: 'swimming-pool', name: 'Rooftop Pool'}
+            ];
+            container.innerHTML = `
+                <div class="page-transition py-24 max-w-7xl mx-auto px-4">
+                    <h1 class="text-5xl font-black mb-20 text-center">World-Class Facilities</h1>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-12">
+                        ${list.map(i => `
+                            <div class="text-center p-12 bg-white rounded-[3rem] shadow-xl hover:shadow-2xl transition">
+                                <i class="fas fa-${i.icon} text-5xl text-yellow-600 mb-8"></i>
+                                <h3 class="text-2xl font-bold">${i.name}</h3>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLocation(container) {
+            container.innerHTML = `
+                <div class="page-transition py-24 max-w-7xl mx-auto px-4">
+                    <h1 class="text-5xl font-black mb-12">Our Location</h1>
+                    <div class="bg-gray-100 h-[600px] rounded-[3rem] flex items-center justify-center border-4 border-white shadow-2xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1524850041227-615c885f470a?auto=format&fit=crop&q=80&w=1200'); opacity: 0.3;"></div>
+                        <div class="relative text-center bg-white p-12 rounded-[2rem] shadow-2xl max-w-md">
+                            <i class="fas fa-map-marker-alt text-6xl text-red-500 mb-6"></i>
+                            <h3 class="text-3xl font-bold mb-4">Mvuli Area, Nairobi</h3>
+                            <p class="text-gray-500 mb-8 font-medium">Heart of Nairobi, close to the Expressway and Westlands CBD.</p>
+                            <a href="https://maps.google.com" target="_blank" class="gold-btn px-10 py-4 rounded-full font-bold inline-block">Directions</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAbout(container) {
+            container.innerHTML = `
+                <div class="page-transition py-24 max-w-4xl mx-auto px-4">
+                    <h1 class="text-5xl font-black mb-12 text-center">The Mvuli Experience</h1>
+                    <div class="prose prose-2xl text-gray-600 text-center leading-relaxed">
+                        <p class="mb-12 text-xl font-medium">${appState.siteText.about}</p>
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1200" class="rounded-[3rem] shadow-2xl">
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderContact(container) {
+            container.innerHTML = `
+                <div class="page-transition py-24 max-w-7xl mx-auto px-4">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                        <div>
+                            <h1 class="text-5xl font-black mb-12">Connect With Us</h1>
+                            <p class="text-2xl text-gray-400 mb-16">${appState.siteText.contact}</p>
+                            <div class="space-y-10">
+                                <div class="flex items-center space-x-8">
+                                    <div class="w-16 h-16 bg-yellow-600 rounded-2xl flex items-center justify-center text-white text-2xl"><i class="fas fa-phone"></i></div>
+                                    <div><p class="text-gray-400 text-sm font-bold uppercase tracking-widest">Call/WhatsApp</p><p class="text-3xl font-bold">+254 715 760 761</p></div>
+                                </div>
+                                <div class="flex items-center space-x-8">
+                                    <div class="w-16 h-16 bg-yellow-600 rounded-2xl flex items-center justify-center text-white text-2xl"><i class="fas fa-envelope"></i></div>
+                                    <div><p class="text-gray-400 text-sm font-bold uppercase tracking-widest">Email</p><p class="text-3xl font-bold">bookings@mvulistay.com</p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="bg-white p-16 rounded-[3rem] shadow-2xl border">
+                            <h3 class="text-2xl font-bold mb-10">Inquiry Form</h3>
+                            <div class="space-y-6">
+                                <input type="text" placeholder="Full Name" class="w-full px-6 py-5 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600">
+                                <input type="email" placeholder="Email" class="w-full px-6 py-5 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600">
+                                <textarea placeholder="How can we help?" rows="5" class="w-full px-6 py-5 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600"></textarea>
+                                <button class="gold-btn w-full py-5 rounded-2xl font-bold text-xl">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- ADMIN LOGIN ---
+        function renderAdminLogin(container) {
+            container.innerHTML = `
+                <div class="page-transition min-h-[70vh] flex items-center justify-center px-4">
+                    <div class="bg-white p-12 md:p-16 rounded-[3rem] shadow-2xl w-full max-w-md border">
+                        <div class="text-center mb-10">
+                            <div class="w-20 h-20 bg-gray-900 text-white rounded-3xl flex items-center justify-center text-3xl mx-auto mb-6"><i class="fas fa-lock"></i></div>
+                            <h2 class="text-3xl font-black">Admin Access</h2>
+                            <p class="text-gray-400">Enter secure key to continue</p>
+                        </div>
+                        <div class="space-y-6">
+                            <input type="password" id="admin-p" placeholder="Security Password" class="w-full px-6 py-5 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">
+                            <button id="auth-btn" class="w-full bg-gray-900 text-white py-5 rounded-2xl font-black text-lg hover:bg-black transition">Verify Identity</button>
+                            <p id="auth-err" class="text-red-500 text-sm text-center hidden font-bold">Access Denied: Invalid Key</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('auth-btn').onclick = () => {
+                if (document.getElementById('admin-p').value === ADMIN_PASS) {
+                    isAdminAuthenticated = true;
+                    sessionStorage.setItem('admin_auth', 'true');
+                    navigateTo('admin-dashboard');
+                } else {
+                    document.getElementById('auth-err').classList.remove('hidden');
+                }
+            };
+        }
+
+        // --- ADMIN DASHBOARD ---
+        function renderAdminDashboard(container) {
+            container.innerHTML = `
+                <div class="flex flex-col lg:flex-row min-h-screen bg-gray-50">
+                    <aside class="w-full lg:w-72 admin-sidebar p-8 flex flex-col space-y-10">
+                        <div class="text-2xl font-black text-yellow-500">ADMIN CONTROL</div>
+                        <nav class="space-y-2 flex-1">
+                            <button onclick="adminTab('bookings')" class="w-full text-left p-4 rounded-2xl hover:bg-gray-800 transition font-bold">Manage Bookings</button>
+                            <button onclick="adminTab('rooms')" class="w-full text-left p-4 rounded-2xl hover:bg-gray-800 transition font-bold">Manage Rooms</button>
+                            <button onclick="adminTab('hero')" class="w-full text-left p-4 rounded-2xl hover:bg-gray-800 transition font-bold">Hero Section</button>
+                            <button onclick="adminTab('gallery')" class="w-full text-left p-4 rounded-2xl hover:bg-gray-800 transition font-bold">Gallery</button>
+                            <button onclick="adminTab('referrals')" class="w-full text-left p-4 rounded-2xl hover:bg-gray-800 transition font-bold">Referral Codes</button>
+                        </nav>
+                        <button onclick="logoutAdmin()" class="bg-red-900/50 text-red-200 py-4 rounded-2xl font-bold hover:bg-red-800 transition">Log Out</button>
+                    </aside>
+                    <main class="flex-1 p-8 lg:p-16" id="admin-view">
+                        ${renderAdminBookings()}
+                    </main>
+                </div>
+            `;
+        }
+
+        function adminTab(tab) {
+            const view = document.getElementById('admin-view');
+            if (tab === 'bookings') view.innerHTML = renderAdminBookings();
+            if (tab === 'rooms') view.innerHTML = renderAdminRooms();
+            if (tab === 'hero') view.innerHTML = renderAdminHero();
+            if (tab === 'gallery') view.innerHTML = renderAdminGallery();
+            if (tab === 'referrals') view.innerHTML = renderAdminReferrals();
+        }
+
+        function logoutAdmin() {
+            isAdminAuthenticated = false;
+            sessionStorage.removeItem('admin_auth');
+            navigateTo('home');
+        }
+
+        // --- ADMIN SUB-RENDERS ---
+
+        function renderAdminBookings() {
+            return `
+                <div class="page-transition">
+                    <h2 class="text-4xl font-black mb-10">Guest Bookings</h2>
+                    <div class="bg-white rounded-3xl shadow-xl overflow-x-auto border">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-900 text-white">
+                                <tr>
+                                    <th class="p-6">Guest Info</th>
+                                    <th class="p-6">Stay Period</th>
+                                    <th class="p-6">Apartment</th>
+                                    <th class="p-6">Referral</th>
+                                    <th class="p-6">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                ${appState.bookings.length === 0 ? '<tr><td colspan="5" class="p-20 text-center text-gray-400 font-bold">No active bookings found</td></tr>' : 
+                                appState.bookings.slice().reverse().map(b => `
+                                    <tr>
+                                        <td class="p-6"><div class="font-bold">${b.guest}</div><div class="text-xs text-gray-400">${b.phone}</div></td>
+                                        <td class="p-6 text-sm font-medium">${b.checkIn} → ${b.checkOut}</td>
+                                        <td class="p-6 font-bold text-yellow-600">${b.room}</td>
+                                        <td class="p-6 text-xs uppercase font-black">${b.referral || '-'}</td>
+                                        <td class="p-6"><button onclick="delBooking(${b.id})" class="text-red-500 hover:underline">Remove</button></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminRooms() {
+            return `
+                <div class="page-transition">
+                    <div class="flex justify-between items-center mb-10">
+                        <h2 class="text-4xl font-black">Manage Rooms</h2>
+                        <button onclick="addRoomModal()" class="gold-btn px-8 py-4 rounded-2xl font-bold">Add New Room</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${appState.rooms.map(r => `
+                            <div class="bg-white p-6 rounded-[2rem] shadow-xl border relative">
+                                <img src="${r.images[0]}" class="room-image-preview mb-6">
+                                <h3 class="text-xl font-bold mb-2">${r.name}</h3>
+                                <p class="text-yellow-600 font-black mb-6">KES ${r.price.toLocaleString()}</p>
+                                <button onclick="delRoom(${r.id})" class="w-full py-3 bg-red-50 text-red-600 rounded-xl font-bold hover:bg-red-100 transition">Delete Room</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminHero() {
+            return `
+                <div class="page-transition max-w-2xl">
+                    <h2 class="text-4xl font-black mb-10">Edit Homepage Hero</h2>
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border space-y-8">
+                        <div>
+                            <label class="block text-xs font-black text-gray-400 uppercase mb-2">Title</label>
+                            <input type="text" id="h-t" value="${appState.hero.title}" class="w-full p-5 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black text-gray-400 uppercase mb-2">Description</label>
+                            <textarea id="h-d" rows="4" class="w-full p-5 bg-gray-50 border rounded-2xl outline-none focus:ring-2 focus:ring-yellow-600 transition">${appState.hero.description}</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-black text-gray-400 uppercase mb-2">Background Image</label>
+                            <div class="flex items-center space-x-6">
+                                <img src="${appState.hero.image}" id="h-prev" class="w-32 h-20 object-cover rounded-xl border-2 border-yellow-600">
+                                <input type="file" id="h-file" class="hidden">
+                                <button onclick="document.getElementById('h-file').click()" class="bg-gray-100 px-6 py-2 rounded-xl text-sm font-bold">Change Image</button>
+                            </div>
+                        </div>
+                        <button onclick="saveHero()" class="gold-btn w-full py-5 rounded-2xl font-black">Save All Updates</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminGallery() {
+            return `
+                <div class="page-transition">
+                    <div class="flex justify-between items-center mb-10">
+                        <h2 class="text-4xl font-black">Gallery Manager</h2>
+                        <div>
+                            <input type="file" id="gal-f" class="hidden">
+                            <button onclick="document.getElementById('gal-f').click()" class="gold-btn px-8 py-4 rounded-2xl font-bold">Upload Photo</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                        ${appState.gallery.map((img, i) => `
+                            <div class="relative group h-40 rounded-2xl overflow-hidden shadow-md">
+                                <img src="${img}" class="w-full h-full object-cover">
+                                <button onclick="delGal(${i})" class="absolute inset-0 bg-red-600/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"><i class="fas fa-trash"></i></button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAdminReferrals() {
+            return `
+                <div class="page-transition max-w-md">
+                    <h2 class="text-4xl font-black mb-10">Referral Codes</h2>
+                    <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border">
+                        <div class="flex space-x-4 mb-10">
+                            <input type="text" id="r-c" placeholder="NEW CODE" class="flex-1 p-5 bg-gray-50 border rounded-2xl uppercase outline-none focus:ring-2 focus:ring-yellow-600 transition font-bold">
+                            <button onclick="addRef()" class="gold-btn px-8 rounded-2xl font-bold">Add</button>
+                        </div>
+                        <div class="space-y-4">
+                            ${appState.referrals.map(c => `
+                                <div class="flex justify-between items-center p-6 bg-gray-50 rounded-2xl">
+                                    <span class="font-black text-xl tracking-widest">${c}</span>
+                                    <button onclick="delRef('${c}')" class="text-red-500 font-bold"><i class="fas fa-times"></i></button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- DASHBOARD ACTIONS ---
+
+        function delBooking(id) {
+            appState.bookings = appState.bookings.filter(b => b.id !== id);
+            saveData(); adminTab('bookings');
+        }
+
+        function delRoom(id) {
+            if(confirm("Confirm deletion? This cannot be undone.")) {
+                appState.rooms = appState.rooms.filter(r => r.id !== id);
+                saveData(); adminTab('rooms');
+            }
+        }
+
+        function saveHero() {
+            appState.hero.title = document.getElementById('h-t').value;
+            appState.hero.description = document.getElementById('h-d').value;
+            saveData(); alert("Homepage updated!");
+        }
+
+        function delGal(idx) {
+            appState.gallery.splice(idx, 1);
+            saveData(); adminTab('gallery');
+        }
+
+        function addRef() {
+            const c = document.getElementById('r-c').value.toUpperCase();
+            if(c && !appState.referrals.includes(c)) {
+                appState.referrals.push(c);
+                saveData(); adminTab('referrals');
+            }
+        }
+
+        function delRef(c) {
+            appState.referrals = appState.referrals.filter(code => code !== c);
+            saveData(); adminTab('referrals');
+        }
+
+        function addRoomModal() {
+            const modal = `
+                <div id="m" class="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-6 backdrop-blur-sm">
+                    <div class="bg-white p-10 rounded-[3rem] w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                        <h3 class="text-3xl font-black mb-10">New Apartment Profile</h3>
+                        <div class="space-y-6">
+                            <input type="text" id="nr-n" placeholder="Name (e.g. Master Executive)" class="w-full p-5 bg-gray-50 border rounded-2xl outline-none">
+                            <input type="number" id="nr-p" placeholder="Price KES" class="w-full p-5 bg-gray-50 border rounded-2xl outline-none">
+                            <textarea id="nr-d" placeholder="Full Description" rows="4" class="w-full p-5 bg-gray-50 border rounded-2xl outline-none"></textarea>
+                            <div>
+                                <label class="block font-bold mb-2">Upload Room Photo</label>
+                                <input type="file" id="nr-f" class="w-full">
+                            </div>
+                            <div class="flex space-x-4 pt-6">
+                                <button onclick="document.getElementById('m').remove()" class="flex-1 py-5 bg-gray-100 rounded-2xl font-bold">Cancel</button>
+                                <button id="save-r" class="flex-1 gold-btn py-5 rounded-2xl font-bold">Create Room</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modal);
+            document.getElementById('save-r').onclick = async () => {
+                const n = document.getElementById('nr-n').value;
+                const p = document.getElementById('nr-p').value;
+                const d = document.getElementById('nr-d').value;
+                const f = document.getElementById('nr-f').files[0];
+                if(!n || !p || !f) return alert("All fields are mandatory");
+                const b64 = await toB64(f);
+                appState.rooms.push({ id: Date.now(), name: n, price: parseInt(p), description: d, images: [b64], amenities: ["WiFi", "Kitchen", "Security"] });
+                saveData(); document.getElementById('m').remove(); adminTab('rooms');
+            };
+        }
+
+        const toB64 = file => new Promise((res, rej) => {
+            const r = new FileReader(); r.readAsDataURL(file);
+            r.onload = () => res(r.result); r.onerror = e => rej(e);
+        });
+
+        // --- GLOBAL LISTENERS ---
+
+        // File Change Handlers for Admin
+        document.addEventListener('change', async (e) => {
+            if(e.target.id === 'h-file') {
+                const b64 = await toB64(e.target.files[0]);
+                appState.hero.image = b64;
+                document.getElementById('h-prev').src = b64;
+                saveData();
+            }
+            if(e.target.id === 'gal-f') {
+                const b64 = await toB64(e.target.files[0]);
+                appState.gallery.push(b64);
+                saveData(); adminTab('gallery');
+            }
+        });
+
+        // 1. HIDDEN SHORTCUT: Shift + A
+        document.addEventListener('keydown', (e) => {
+            // Using Shift + A (uppercase A)
+            if (e.shiftKey && e.code === 'KeyA') {
+                navigateTo('admin-login');
+            }
+        });
+
+        // 2. SECRET BUTTON: Inside the copyright in footer (hover to see)
+        // Handled via the span element in the footer HTML
+
+        document.getElementById('mobile-menu-btn').onclick = () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        };
+
+        window.onpopstate = (e) => {
+            const h = window.location.hash.substring(1) || 'home';
+            navigateTo(h);
+        };
+
+        window.onload = () => {
+            const h = window.location.hash.substring(1) || 'home';
+            navigateTo(h);
+        };
+
+    </script>
+</body>
+</html>
